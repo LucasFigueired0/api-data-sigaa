@@ -117,7 +117,7 @@ app.post('/users/sign-up', (req, res) => {
 
 app.post('/users/sign-in', (req, res) => {
     const username = req.body.username.substring(0, 90);
-    const password = req.body.password.substring(0,30);
+    const password = req.body.password.substring(0, 30);
     execSQLQueryUser(`SELECT id, 
                       name,
                       last_name,
@@ -126,6 +126,25 @@ app.post('/users/sign-in', (req, res) => {
                       undergraduate_degree,
                       initial_semester,
                       level FROM student WHERE username='${username}' AND password='${password}' `, res);
+})
+
+app.post('/users/get-data-user', (req, res) => {
+    const id = req.body.id.substring(0,90);
+   
+
+
+    execSQLQueryUser(`SELECT
+        name,
+        last_name,
+        email,
+        registration_number,
+        undergraduate_degree,
+        initial_semester,
+        level
+        FROM
+        student
+    WHERE
+        id = ${id}`, res);
 })
 
 
